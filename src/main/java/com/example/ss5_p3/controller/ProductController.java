@@ -47,4 +47,45 @@ public class ProductController {
                 HttpStatus.CREATED
         ),HttpStatus.CREATED);
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiDataResponse<Product>> updateProduct(
+            @PathVariable Long id,
+            @RequestBody Product product
+    ) {
+
+        return new ResponseEntity<>(
+                new ApiDataResponse<>(
+                        true,
+                        "Cap nhat thanh cong",
+                        iProductService.updateProduct(id, product),
+                        HttpStatus.OK
+                ),
+                HttpStatus.OK
+        );
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<ApiDataResponse<Product>> patchProduct(
+            @PathVariable Long id,
+            @RequestBody Product product
+    ) {
+
+        return new ResponseEntity<>(
+                new ApiDataResponse<>(
+                        true,
+                        "Cap nhat mot phan thanh cong",
+                        iProductService.patchProduct(id, product),
+                        HttpStatus.OK
+                ),
+                HttpStatus.OK
+        );
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+
+        iProductService.deleteProduct(id);
+
+        return ResponseEntity.noContent().build();
+    }
 }
